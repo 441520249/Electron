@@ -27,7 +27,9 @@ npm start
 打开之后，会发现是一个app，你要关闭这个app，交互是跟网页版本不一样
 
 ## 用生成后的桌面应用 调试开发
-1.开启前端或后端服务器 2.electron-quick-start/main.js
+1.开启前端或后端服务器 
+
+2.electron-quick-start/main.js
 ```
   ···
   //直接让start后的调试页面，指向你的服务器
@@ -35,4 +37,28 @@ npm start
 
   ···
  ```
+ 
 3.npm start
+
+## 生成win和mac系统的安装包
+- 先安装electron-packager
+
+```
+cnpm i electron-packager -g
+```
+
+在package.json的scripts中添加命令
+
+//package.json
+```
+"scripts": {
+    "start": "electron .",
+    "package:win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --out=out --icon=assets/app-icon/win/app.ico",
+    "package:mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --out=out --icon=assets/app-icon/mac/app.icns --osx-sign.identity='Developer ID Application: GitHub' --extend-info=assets/mac/info.plist"
+  },
+```
+在根目录添加文件夹assets 
+
+--icon=assets/app-icon/win/app.ico为图标路径
+
+最后执行npm run package:win 进行打包
